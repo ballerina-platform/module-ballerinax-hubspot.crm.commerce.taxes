@@ -145,7 +145,7 @@ public function main() returns error? {
    };
 
    ConnectionConfig config = {auth};
-   final Client hubSpotClient = check new Client(config, "https://api.hubapi.com/crm/v3/objects/taxes");
+   final Client hubSpotClientTax = check new Client(config, "https://api.hubapi.com/crm/v3/objects/taxes");
 
    import ballerinax/hubspot.crm.commerce.taxes;
    import ballerina/oauth2;
@@ -160,7 +160,7 @@ public function main() returns error? {
          "hs_value": "6"
       }
 
-      SimplePublicObject|error response = check taxes->/.post(payload);
+      SimplePublicObject|error response = check hubspotClientTax->/.post(payload);
 
    };
    return;

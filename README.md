@@ -92,7 +92,7 @@ To use the `HubSpot CRM Commerce Taxes` connector in your Ballerina application,
 Import the `hubspot.crm.commerce.taxes` module and `oauth2` module.
 
 ```ballerina
-import ballerinax/hubspot.crm.commerce.taxes;
+import ballerinax/hubspot.crm.commerce.taxes as taxes;
 import ballerina/oauth2;
 ```
 
@@ -113,7 +113,7 @@ import ballerina/oauth2;
    configurable string clientSecret = ?;
    configurable string refreshToken = ?;
 
-   ConnectionConfig config = {
+   taxes:ConnectionConfig config = {
       auth : {
          clientId,
          clientSecret,
@@ -121,7 +121,7 @@ import ballerina/oauth2;
          credentialBearer: oauth2:POST_BODY_BEARER 
       }
    };
-   final Client hubSpotClient = check new (config);
+   final taxes:Client hubSpotClient = check new taxes:Client(config);
    ```
 
 ### Step 3: Invoke the connector operation
@@ -132,7 +132,7 @@ Now, utilize the available connector operations. A sample usecase is shown below
 
 ```ballerina
 
-   SimplePublicObjectInputForCreate payload = {
+   deals:SimplePublicObjectInputForCreate payload = {
 
       associations: [],
       objectWriteTraceId: "1234",
@@ -142,7 +142,7 @@ Now, utilize the available connector operations. A sample usecase is shown below
          "hs_value": "6"
       }
 
-      SimplePublicObject|error response = check hubspotClientTax->/.post(payload);
+      deals:SimplePublicObject|error response = check hubspotClientTax->/.post(payload);
 
    };
 ```

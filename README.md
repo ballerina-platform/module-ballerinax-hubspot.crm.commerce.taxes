@@ -85,6 +85,88 @@ Navigate to `Auth` tab.
 
 [//]: # (TODO: Add a quickstart guide to demonstrate a basic functionality of the module, including sample code snippets.)
 
+To use the `HubSpot CRM Commerce Taxes` connector in your Ballerina application, update the `.bal` file as follows:
+
+### Step 1: Import the module
+
+Import the `hubspot.crm.commerce.taxes` module and `oauth2` module.
+
+```ballerina
+import ballerinax/hubspot.crm.commerce.taxes;
+import ballerina/oauth2;
+```
+
+### Step 2: Instantiate a new connector
+
+1. Create a `Config.toml` file and, configure the obtained credentials obtained in the above steps as follows:
+
+   ```toml
+    clientId = <Client Id>
+    clientSecret = <Client Secret>
+    refreshToken = <Refresh Token>
+   ```
+
+2. Instantiate a `OAuth2RefreshTokenGrantConfig` with the obtained credentials and initialize the connector with it.
+
+    ```ballerina
+   configurable string clientId = ?;
+   configurable string clientSecret = ?;
+   configurable string refreshToken = ?;
+
+   OAuth2RefreshTokenGrantConfig auth = {
+      clientId,
+      clientSecret,
+      refreshToken,
+      credentialBearer: oauth2:POST_BODY_BEARER 
+   };
+
+   ConnectionConfig config = {auth};
+   final Client hubSpotClient = check new Client(config, "https://api.hubapi.com");
+   ```
+
+### Step 3: Invoke the connector operation
+
+Now, utilize the available connector operations. A sample usecase is shown below.
+
+#### Create a New Tax
+
+```ballerina
+public function main() returns error? {
+
+   configurable string clientId = ?;
+   configurable string clientSecret = ?;
+   configurable string refreshToken = ?;
+
+   OAuth2RefreshTokenGrantConfig auth = {
+      clientId,
+      clientSecret,
+      refreshToken,
+      credentialBearer: oauth2:POST_BODY_BEARER 
+   };
+
+   ConnectionConfig config = {auth};
+   final Client hubSpotClient = check new Client(config, "https://api.hubapi.com/crm/v3/objects/taxes");
+
+   import ballerinax/hubspot.crm.commerce.taxes;
+   import ballerina/oauth2;
+
+   SimplePublicObjectInputForCreate payload = {
+
+      associations: [],
+      objectWriteTraceId: "1234",
+      properties: {
+         "hs_label": "A percentage-based tax of 6%",
+         "hs_type": "PERCENT",
+         "hs_value": "6"
+      }
+
+      SimplePublicObject|error response = check taxes->/.post(payload);
+
+   };
+   return;
+}
+```
+
 ## Examples
 
 The `HubSpot CRM Commerce Taxes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/), covering the following use cases:

@@ -113,15 +113,15 @@ import ballerina/oauth2;
    configurable string clientSecret = ?;
    configurable string refreshToken = ?;
 
-   OAuth2RefreshTokenGrantConfig auth = {
-      clientId,
-      clientSecret,
-      refreshToken,
-      credentialBearer: oauth2:POST_BODY_BEARER 
+   ConnectionConfig config = {
+      auth : {
+         clientId,
+         clientSecret,
+         refreshToken,
+         credentialBearer: oauth2:POST_BODY_BEARER 
+      }
    };
-
-   ConnectionConfig config = {auth};
-   final Client hubSpotClient = check new Client(config, "https://api.hubapi.com");
+   final Client hubSpotClient = check new (config);
    ```
 
 ### Step 3: Invoke the connector operation
@@ -131,24 +131,6 @@ Now, utilize the available connector operations. A sample usecase is shown below
 #### Create a New Tax
 
 ```ballerina
-public function main() returns error? {
-
-   configurable string clientId = ?;
-   configurable string clientSecret = ?;
-   configurable string refreshToken = ?;
-
-   OAuth2RefreshTokenGrantConfig auth = {
-      clientId,
-      clientSecret,
-      refreshToken,
-      credentialBearer: oauth2:POST_BODY_BEARER 
-   };
-
-   ConnectionConfig config = {auth};
-   final Client hubSpotClientTax = check new Client(config, "https://api.hubapi.com/crm/v3/objects/taxes");
-
-   import ballerinax/hubspot.crm.commerce.taxes;
-   import ballerina/oauth2;
 
    SimplePublicObjectInputForCreate payload = {
 
@@ -163,8 +145,6 @@ public function main() returns error? {
       SimplePublicObject|error response = check hubspotClientTax->/.post(payload);
 
    };
-   return;
-}
 ```
 
 ## Examples

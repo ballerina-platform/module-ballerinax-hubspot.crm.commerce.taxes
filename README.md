@@ -15,7 +15,7 @@ The ballerinax/hubspot.crm.commerce.taxes offers APIs to connect and interact wi
 ## Setup guide
 
 You need a [HubSpot developer account](https://developers.hubspot.com/get-started) with an [app](https://developers.hubspot.com/docs/guides/apps/public-apps/overview) to use HubSpot connectors.
->To create a HubSpot Developer account, [click here](https://app.hubspot.com/signup-hubspot/developers
+>To create a HubSpot Developer account, [click here](https://app.hubspot.com/signup-hubspot/developers)
 
 ### Step 1: Create HubSpot Developer Project
 1. [Login](https://app.hubspot.com/login) to HubSpot developer account.

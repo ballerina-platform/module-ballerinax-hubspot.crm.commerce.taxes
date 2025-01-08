@@ -54,7 +54,7 @@ public function main(){
 
     taxes:SimplePublicObject|error updatedTax = hubspotTaxes->/[taxId].patch(payload = newTaxDetails);
 
-     if newTax is taxes:SimplePublicObject {
+     if updatedTax is taxes:SimplePublicObject {
         io:println("Successfully updated the tax properties");
         io:println(updatedTax);
     } else {
@@ -62,7 +62,7 @@ public function main(){
     }
 
     //Archive the tax
-    var response = hubspotTaxes->/[dealId].delete();
+    var response = hubspotTaxes->/[taxId].delete();
 
     if response is http:Response && response.statusCode == 204 {
         io:println("sucessfully deleted the tax");

@@ -83,8 +83,6 @@ Navigate to `Auth` tab.
 
 ## Quickstart
 
-[//]: # (TODO: Add a quickstart guide to demonstrate a basic functionality of the module, including sample code snippets.)
-
 To use the `HubSpot CRM Commerce Taxes` connector in your Ballerina application, update the `.bal` file as follows:
 
 ### Step 1: Import the module
@@ -92,7 +90,7 @@ To use the `HubSpot CRM Commerce Taxes` connector in your Ballerina application,
 Import the `hubspot.crm.commerce.taxes` module and `oauth2` module.
 
 ```ballerina
-import ballerinax/hubspot.crm.commerce.taxes as taxes;
+import ballerinax/hubspot.crm.commerce.taxes;
 import ballerina/oauth2;
 ```
 
@@ -132,7 +130,7 @@ Now, utilize the available connector operations. A sample usecase is shown below
 
 ```ballerina
 
-   deals:SimplePublicObjectInputForCreate payload = {
+   taxes:SimplePublicObjectInputForCreate payload = {
 
       associations: [],
       objectWriteTraceId: "1234",
@@ -142,7 +140,7 @@ Now, utilize the available connector operations. A sample usecase is shown below
          "hs_value": "6"
       }
 
-      deals:SimplePublicObject|error response = check hubspotClientTax->/.post(payload);
+      taxes:SimplePublicObject|error response = check hubspotClientTax->/.post(payload);
 
    };
 ```

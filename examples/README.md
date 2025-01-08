@@ -2,13 +2,19 @@
 
 The `ballerinax/hubspot.crm.commerce.taxes` connector provides practical examples illustrating usage in various scenarios.
 
-[//]: # (TODO: Add examples)
-1. 
+1. [Manage Deals](/examples/manage-taxes/) - see how the Hubspot taxes API can be used to create a tax and manage it through the sales pipeline.
 2. 
 
 ## Prerequisites
 
-[//]: # (TODO: Add prerequisites)
+1. Generate hubspot credentials to authenticate the connector as described in the [setup guide](/README.md).
+
+2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml `file should look:
+    ```toml
+    clientId = "<Client ID>"
+    clientSecret = "<Client Secret>"
+    refreshToken = "<Access Token>"
+    ```
 
 ## Running an example
 

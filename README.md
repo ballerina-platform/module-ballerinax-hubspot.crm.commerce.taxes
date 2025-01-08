@@ -15,7 +15,7 @@ The ballerinax/hubspot.crm.commerce.taxes offers APIs to connect and interact wi
 ## Setup guide
 
 You need a [HubSpot developer account](https://developers.hubspot.com/get-started) with an [app](https://developers.hubspot.com/docs/guides/apps/public-apps/overview) to use HubSpot connectors.
->To create a HubSpot Developer account, [click here](https://app.hubspot.com/signup-hubspot/developers?_ga=2.207749649.2047916093.1734412948-232493525.1734412948&step=landing_page)
+>To create a HubSpot Developer account, [click here](https://app.hubspot.com/signup-hubspot/developers
 
 ### Step 1: Create HubSpot Developer Project
 1. [Login](https://app.hubspot.com/login) to HubSpot developer account.
@@ -151,7 +151,8 @@ Now, utilize the available connector operations. A sample usecase is shown below
 
 The `HubSpot CRM Commerce Taxes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/), covering the following use cases:
 
-[//]: # (TODO: Add examples)
+1. [Manage Taxes](/examples/manage-taxes/) - see how the Hubspot taxes API can be used to create a tax and manage it through the sales pipeline.
+2. 
 
 ## Build from the source
 

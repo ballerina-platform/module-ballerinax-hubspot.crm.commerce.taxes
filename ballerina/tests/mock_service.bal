@@ -7,7 +7,6 @@ http:Service mockService = service object {
     resource function post batch/upsert(@http:Payload BatchInputSimplePublicObjectBatchInputUpsert payload) returns BatchResponseSimplePublicUpsertObject {
 
         BatchResponseSimplePublicUpsertObject responseBody = {
-
             "completedAt": "2025-01-08T15:04:30.816Z",
             "requestedAt": "2025-01-08T15:04:30.816Z",
             "startedAt": "2025-01-08T15:04:30.816Z",

@@ -62,7 +62,7 @@ Navigate to `Auth` tab.
 
 3. Choose the preferred account.
 
-   ![alt text](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/account_chose.png)
+   ![Choose Account](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/account_chose.png)
 
    Choose account and authorize the client.
 
@@ -160,8 +160,8 @@ Now, utilize the available connector operations. A sample usecase is shown below
 
 The `HubSpot CRM Commerce Taxes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/), covering the following use cases:
 
-1. [Manage Taxes](https://github.com/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/manage-taxes/) - see how the Hubspot taxes API can be used to create a tax and manage it through the sales pipeline.
-2. [Search Taxes](https://github.com/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/search_taxes/) - see how the Hubspot taxes API can be used to search for taxes using properties and create a batch of taxes
+1. [Manage Taxes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/examples/manage-taxes/) - see how the Hubspot taxes API can be used to create a tax and manage it through the sales pipeline.
+2. [Search Taxes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/examples/search_taxes/) - see how the Hubspot taxes API can be used to search for taxes using properties and create a batch of taxes
 
 ## Build from the source
 

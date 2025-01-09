@@ -14,14 +14,11 @@ taxes:OAuth2RefreshTokenGrantConfig auth = {
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
-taxes:ConnectionConfig config = {auth: auth};
-
-final taxes:Client hubspotTaxes = check new taxes:Client(config);
+final taxes:Client hubspotTaxes = check new ({auth});
 
 public function main() returns error? {
 
     //Search for a tax by label
-
     taxes:PublicObjectSearchRequest payload = {
         sorts: ["hs_value"],
         query: "A percentage-based tax of 8.5%",
@@ -34,7 +31,6 @@ public function main() returns error? {
     io:println(`total number of taxes found: ${response.results.length()}`);
 
     //Create 2 taxes at the same time using batch API
-
     taxes:SimplePublicObjectInputForCreate tax1 = {
         "associations": [],
         "properties": {
@@ -59,13 +55,10 @@ public function main() returns error? {
 
     taxes:BatchResponseSimplePublicObject|taxes:BatchResponseSimplePublicObjectWithErrors batchResponse = check hubspotTaxes->/batch/create.post(batchInput);
 
-    if (response is taxes:BatchResponseSimplePublicObjectWithErrors) {
-
+    if response is taxes:BatchResponseSimplePublicObjectWithErrors {
         io:println("Error occured while batch creating taxes");
-
     }
     else {
-
         io:println(`Successfully batch created taxes with ids ${batchResponse.results[0].id} and ${batchResponse.results[1].id}`);
     }
 

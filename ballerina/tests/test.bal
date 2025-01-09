@@ -21,9 +21,7 @@ import ballerina/http;
 import ballerina/oauth2;
 import ballerina/test;
 
-//import ballerina/io;
-
-configurable boolean isLiveServer = ?;
+configurable boolean isLiveServer = false;
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
@@ -31,9 +29,9 @@ configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/o
 
 ConnectionConfig config = {
     auth: {
-        clientId: clientId,
-        clientSecret: clientSecret,
-        refreshToken: refreshToken,
+        clientId,
+        clientSecret,
+        refreshToken,
         credentialBearer: oauth2:POST_BODY_BEARER // this line should be added in to when you are going to create auth object.
     }
 };
@@ -80,7 +78,6 @@ function testPostTax() returns error? {
 function testGetTaxList() returns error? {
 
     GetCrmV3ObjectsTaxes_getpageQueries params = {
-
         'limit: 5,
         properties: ["hs_value", "hs_type", "hs_label"]
     };
@@ -194,18 +191,15 @@ function testPostBatchUpsert() returns error? {
     BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response = check taxes->/batch/upsert.post(payload);
 
     if response is BatchResponseSimplePublicUpsertObjectWithErrors {
-
         test:assertFail("Error occured while batch upserting taxes");
     }
     else {
-
         test:assertEquals(response.status, "COMPLETE", "Batch upsert failed");
         test:assertEquals(response.results.length(), 2, "Not all the taxes are upserted");
         test:assertNotEquals(response.results[0].id, (), "Id of an upserted tax is null");
         test:assertNotEquals(response.results[1].id, (), "Id of an upserted tax is null");
 
         foreach var result in response.results {
-
             string id = result.id;
             string expectedLabel = id == "395102392355" ? "A percentage-based tax of 4.5%" : "A percentage-based tax of 4.75%";
             string expectedValue = id == "395102392355" ? "4.5000" : "4.7500";
@@ -255,7 +249,6 @@ function testPostBatchUpdate() returns error? {
     test:assertNotEquals(response.results[1].id, (), "Id of an updated tax is null");
 
     foreach var result in response.results {
-
         string id = result.id;
         string expectedLabel = id == batchTaxId[0] ? "A percentage-based tax of 3.5%" : "A percentage-based tax of 3.75%";
         string expectedValue = id == batchTaxId[0] ? "3.5000" : "3.7500";
@@ -280,12 +273,9 @@ function testPostBatchRead() returns error? {
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check taxes->/batch/read.post(payload);
 
     if response is BatchResponseSimplePublicObjectWithErrors {
-
         test:assertFail("Error occured while batch reading taxes");
-
     }
     else {
-
         test:assertEquals(response.results.length(), 2, "Not all the taxes are fetched");
         test:assertNotEquals(response.results[0].id, (), "Id of a fetched tax is null");
         test:assertNotEquals(response.results[1].properties, (), "properties of a fetched tax is null");
@@ -323,12 +313,9 @@ function testPostBatchcreate() returns error? {
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check taxes->/batch/create.post(payload);
 
     if response is BatchResponseSimplePublicObjectWithErrors {
-
         test:assertFail("Error occured while batch creating taxes");
-
     }
     else {
-
         test:assertEquals(response.status, "COMPLETE", "Batch create failed");
         test:assertEquals(response.results.length(), 2, "Not all the taxes are created");
         test:assertNotEquals(response.results[0].id, (), "Id of a created tax is null");
@@ -357,7 +344,6 @@ isolated function testPostSearch() returns error? {
     test:assertTrue(response.results.length() <= 10, "Limit Exceeded");
 
     foreach SimplePublicObject result in response.results {
-
         test:assertNotEquals(result.id, (), "Tax ID is not found");
         test:assertNotEquals(result.properties, (), "Tax properties are not found");
         test:assertNotEquals(result.properties["hs_type"], (), "Tax type is not found");

@@ -14,15 +14,11 @@ taxes:OAuth2RefreshTokenGrantConfig auth = {
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
-taxes:ConnectionConfig config = {auth: auth};
-
-final taxes:Client hubspotTaxes = check new taxes:Client(config);
+final taxes:Client hubspotTaxes = check new ({auth});
 
 public function main() returns error? {
 
     //Create a new tax
-    string taxId = "";
-
     taxes:SimplePublicObjectInputForCreate payload = {
         "associations": [],
         "properties": {
@@ -34,8 +30,7 @@ public function main() returns error? {
 
     taxes:SimplePublicObject tax = check hubspotTaxes->/.post(payload);
 
-    taxId = tax.id;
-
+    string taxId = tax.id;
     io:println(`A Tax created with id ${taxId}`);
 
     //Update the tax properties

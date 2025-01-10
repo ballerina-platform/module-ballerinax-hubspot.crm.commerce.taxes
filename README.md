@@ -51,8 +51,12 @@ Navigate to `Auth` tab.
 
 1. Set scopes under `Auth` tab for your app based on the [API requirements](https://developers.hubspot.com/docs/reference/api).
 
-   >Example: https://developers.hubspot.com/docs/reference/api/crm/commerce/taxes
    ![Api Reference ](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/exmaple_api_reference.png)
+
+   Enable scopes required for HubSpot CRM Taxes API based on your use case.
+   - `crm.objects.line_items.read`
+   - `crm.objects.line_items.write`
+   - `oauth`
 
 2. Under `Auth` tab under `Sample install URL (OAuth)` section `Copy full URL`.
    >**Note:** The above copied URL is in the following format.

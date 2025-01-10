@@ -1,6 +1,6 @@
 ## Hubspot Tax Creator
 
-This use case demonstrates how the `hubspot.crm.commerce.taxes` API can be utilized to Search for taxes and create a batch of taxes. The example involves a sequence of actions that leverage the Hubspot CRM API v3 to automate the process of creating and updating a sales pipeline
+This use case demonstrates how the Ballerina `hubspot.crm.commerce.taxes` Connector can be utilized to Search for taxes and create a batch of taxes. The example involves a sequence of actions that leverage the Hubspot CRM API v3 to automate the process of creating and updating a sales pipeline
 
 ## Prerequisites
 

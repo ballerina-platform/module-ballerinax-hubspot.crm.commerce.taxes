@@ -11,7 +11,7 @@ These changes are done in order to improve the overall usability, and as workaro
 
 1. Change the `date-time` type mentioned in taxes.json to `datetime`:
 
-    *Reason: Removing hyphenated type names like date-time improves readability and eliminates potential parsing complexities in the language's syntax and using date-time gives warnings at the build stage.
+    * Reason: Removing hyphenated type names like date-time improves readability and eliminates potential parsing complexities in the language's syntax and using date-time gives warnings at the build stage.
 
 2. Change the url property of the servers object:
 

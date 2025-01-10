@@ -11,37 +11,36 @@ You need a [HubSpot developer account](https://developers.hubspot.com/get-starte
 ### Step 1: Create HubSpot Developer Project
 1. [Login](https://app.hubspot.com/login) to HubSpot developer account.
 
-2. Create a public app by clicking on `Create app`.
+2. Create a public app by clicking on Create app.
 
    ![Create public app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/build_public_app.png)
 
-3. Click on `Create app`.
+3. Click on "Create app".
 ![Create app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/create_app.png)
 
-4. Under `App Info`
-   - Enter `Public app name`.
-   - Update `App logo` (optional).
-   - Update `Description` (optional). 
+4. Under "App Info"
+   - Enter "Public app name".
+   - Update "App logo" (optional).
+   - Update "Description" (optional). 
 
    ![Enter app details](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/enter_app_details.png)
 
-- Then move to `Auth` tab.
+- Then move to the "Auth" tab.
 
-5. Setup the `Redirect URLs` with respective links.
-   >Example: http://localhost:9090  
+5. Setup the "Redirect URLs" with respective links.
 
    ![Auth page](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/auth_page.png)
 
-Finally `Create app`.
+Finally "Create app".
 
 ### Step 2: Get `Client ID` and `Client secret`.
-Navigate to `Auth` tab.
+Navigate to the "Auth" tab.
 
 ![Client Id, secret](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/client_id_secret.png)
 
 ### Step 3: Get `access token` and `refresh token`.
 
-1. Set scopes under `Auth` tab for your app based on the [API requirements](https://developers.hubspot.com/docs/reference/api).
+1. Set scopes under "Auth" tab for your app based on the [API requirements](https://developers.hubspot.com/docs/reference/api).
 
    ![Api Reference ](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/exmaple_api_reference.png)
 
@@ -50,7 +49,7 @@ Navigate to `Auth` tab.
    - `crm.objects.line_items.write`
    - `oauth`
 
-2. Under `Auth` tab under `Sample install URL (OAuth)` section `Copy full URL`.
+2. In the "Auth" tab under "Sample install URL (OAuth)" section "Copy full URL".
    >**Note:** The above copied URL is in the following format.
    ```
    https://app.hubspot.com/oauth/authorize?client_id=<client_id>&redirect_uri=<redirect_url>&scope=<scopes>
@@ -62,7 +61,7 @@ Navigate to `Auth` tab.
 
    Choose account and authorize the client.
 
-4. `This site can’t be reached` message will appear. Look in the URL and find the authorization code.
+4. "This site can’t be reached" message will appear. Look in the URL and find the authorization code.
 
 5. Send a http request to the HubSpot.
 
@@ -97,8 +96,8 @@ To use the `HubSpot CRM Commerce Taxes` connector in your Ballerina application,
 Import the `hubspot.crm.commerce.taxes` module and `oauth2` module.
 
 ```ballerina
-import ballerinax/hubspot.crm.commerce.taxes;
 import ballerina/oauth2;
+import ballerinax/hubspot.crm.commerce.taxes;
 ```
 
 ### Step 2: Instantiate a new connector
@@ -154,7 +153,7 @@ Now, utilize the available connector operations. A sample usecase is shown below
 
 ## Examples
 
-The `HubSpot CRM Commerce Taxes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/), covering the following use cases:
+The `HubSpot CRM Commerce Taxes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples), covering the following use cases:
 
-1. [Manage Taxes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/examples/manage-taxes/) - see how the Hubspot taxes API can be used to create a tax and manage it through the sales pipeline.
-2. [Search Taxes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/examples/search_taxes/) - see how the Hubspot taxes API can be used to search for taxes using properties and create a batch of taxes
+1. [Manage Taxes](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/manage-taxes/) - see how the Ballerina `hubspot.crm.commerce.taxes` connector can be used to create a tax and manage it through the sales pipeline.
+2. [Search Taxes](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/examples/search_taxes/) - see how the Ballerina `hubspot.crm.commerce.taxes` connector can be used to search for taxes using properties and create a batch of taxes

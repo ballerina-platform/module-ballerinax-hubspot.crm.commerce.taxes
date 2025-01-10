@@ -6,7 +6,7 @@ This use case demonstrates how the Ballerina `hubspot.crm.commerce.taxes` Connec
 
 ### 1. Setup the Hubspot developer account
 
-Refer to the [Setup guide](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/README.md#setup-guide) to obtain necessary credentials (client Id, client secret, Refresh tokens).
+Refer to the [Setup guide](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/tree/main/README.md#setup-guide) to obtain necessary credentials (client Id, client secret, Refresh tokens).
 
 ### 2. Configuration
 

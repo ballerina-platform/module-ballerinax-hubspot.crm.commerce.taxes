@@ -19,13 +19,12 @@
 
 import ballerina/http;
 import ballerina/oauth2;
-import ballerina/os;
 import ballerina/test;
 
 final boolean isLiveServer = false;
-final string clientId = os:getEnv("HUBSPOT_CLIENT_ID");
-final string clientSecret = os:getEnv("HUBSPOT_CLIENT_SECRET");
-final string refreshToken = os:getEnv("HUBSPOT_REFRESH_TOKEN");
+configurable string clientId = "mockClientId";
+configurable string clientSecret = "mockClientSecret";
+configurable string refreshToken =  "mockRefreshToken";
 configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/objects/taxes" 
                                 : "http://localhost:9090";
 

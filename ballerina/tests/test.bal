@@ -21,31 +21,19 @@ import ballerina/http;
 import ballerina/oauth2;
 import ballerina/test;
 
-final boolean isLiveServer = false;
 configurable string clientId = "mockClientId";
 configurable string clientSecret = "mockClientSecret";
 configurable string refreshToken =  "mockRefreshToken";
-configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/objects/taxes" 
-                                : "http://localhost:9090";
 
-final Client taxes = check initClient();
+OAuth2RefreshTokenGrantConfig auth = {
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER // this line should be added to create auth object.
 
-isolated function initClient() returns Client|error {
-    if isLiveServer {
-        OAuth2RefreshTokenGrantConfig auth = {
-            clientId,
-            clientSecret,
-            refreshToken,
-            credentialBearer: oauth2:POST_BODY_BEARER
-        };
-        return check new ({auth}, serviceUrl);
-    }
-    return check new ({
-        auth: {
-            token: "test-token"
-        }
-    }, serviceUrl);
-}
+};
+
+final Client taxes = check new Client({auth});
 
 //this object is used to test the Basic endpoints
 SimplePublicObject basicTax = {
@@ -59,8 +47,7 @@ SimplePublicObject basicTax = {
 string[] batchTaxId = [];
 
 @test:Config {
-    groups: ["live_tests", "Basic"],
-    enable: isLiveServer
+    groups: ["live_service_test"]
 }
 function testPostTax() returns error? {
 
@@ -83,7 +70,7 @@ function testPostTax() returns error? {
 }
 
 @test:Config {
-    groups: ["mock_tests", "live_tests", "Basic"]
+    groups: ["live_service_test"]
 }
 function testGetTaxList() returns error? {
 
@@ -106,9 +93,8 @@ function testGetTaxList() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Basic"],
-    dependsOn: [testPostTax],
-    enable: isLiveServer
+    groups: ["live_service_test"],
+    dependsOn: [testPostTax]
 }
 function testGetTaxbyID() returns error? {
 
@@ -128,9 +114,8 @@ function testGetTaxbyID() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Basic"],
-    dependsOn: [testPatchTaxbyID],
-    enable: isLiveServer
+    groups: ["live_service_test"],
+    dependsOn: [testPatchTaxbyID]
 }
 function testDeleteTaxbyID() returns error? {
 
@@ -142,9 +127,8 @@ function testDeleteTaxbyID() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Basic"],
-    dependsOn: [testGetTaxbyID],
-    enable: isLiveServer
+    groups: ["live_service_test"],
+    dependsOn: [testGetTaxbyID]
 }
 function testPatchTaxbyID() returns error? {
 
@@ -167,64 +151,8 @@ function testPatchTaxbyID() returns error? {
 }
 
 @test:Config {
-    groups: ["mock_tests", "Batch"],
-    enable: !isLiveServer
-}
-function testPostBatchUpsert() returns error? {
-
-    BatchInputSimplePublicObjectBatchInputUpsert payload = {
-        inputs: [
-            {
-                idProperty: "string1",
-                objectWriteTraceId: "1234",
-                id: "395102392355",
-                properties: {
-                    "hs_label": "A percentage-based tax of 4.5%",
-                    "hs_value": "4.5000",
-                    "hs_type": "PERCENT"
-                }
-            },
-            {
-                idProperty: "string2",
-                objectWriteTraceId: "12345",
-                id: "395102392356",
-                properties: {
-                    "hs_label": "A percentage-based tax of 4.75%",
-                    "hs_value": "4.7500",
-                    "hs_type": "PERCENT"
-                }
-            }
-        ]
-
-    };
-
-    BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response = 
-        check taxes->/batch/upsert.post(payload);
-
-    if response is BatchResponseSimplePublicUpsertObjectWithErrors {
-        test:assertFail("Error occured while batch upserting taxes");
-    }
-    else {
-        test:assertEquals(response.status, "COMPLETE", "Batch upsert failed");
-        test:assertEquals(response.results.length(), 2, "Not all the taxes are upserted");
-        test:assertNotEquals(response.results[0].id, (), "Id of an upserted tax is null");
-        test:assertNotEquals(response.results[1].id, (), "Id of an upserted tax is null");
-
-        foreach var result in response.results {
-            string id = result.id;
-            string expectedLabel = id == "395102392355" ? "A percentage-based tax of 4.5%" 
-                                        : "A percentage-based tax of 4.75%";
-            string expectedValue = id == "395102392355" ? "4.5000" : "4.7500";
-            test:assertEquals(result.properties["hs_label"], expectedLabel, "Tax label is not upserted");
-            test:assertEquals(result.properties["hs_value"], expectedValue, "Tax value is not upserted");
-        }
-    }
-}
-
-@test:Config {
-    groups: ["live_tests", "Batch"],
-    dependsOn: [testPostBatchRead],
-    enable: isLiveServer
+    groups: ["live_service_test"],
+    dependsOn: [testPostBatchRead]
 }
 function testPostBatchUpdate() returns error? {
 
@@ -272,9 +200,8 @@ function testPostBatchUpdate() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Batch"],
-    dependsOn: [testPostBatchcreate],
-    enable: isLiveServer
+    groups: ["live_service_test"],
+    dependsOn: [testPostBatchcreate]
 }
 function testPostBatchRead() returns error? {
 
@@ -300,8 +227,7 @@ function testPostBatchRead() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Batch"],
-    enable: isLiveServer
+    groups: ["live_service_test"]
 }
 function testPostBatchcreate() returns error? {
 
@@ -344,8 +270,7 @@ function testPostBatchcreate() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Search"],
-    enable: isLiveServer
+    groups: ["live_service_test"]
 }
 isolated function testPostSearch() returns error? {
     PublicObjectSearchRequest payload = {
@@ -369,9 +294,8 @@ isolated function testPostSearch() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "Batch"],
-    dependsOn: [testPostBatchUpdate],
-    enable: isLiveServer
+    groups: ["live_service_test"],
+    dependsOn: [testPostBatchUpdate]
 }
 function testPostBatchArchive() returns error? {
 

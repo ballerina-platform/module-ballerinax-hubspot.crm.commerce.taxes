@@ -24,16 +24,18 @@ import ballerina/test;
 configurable string clientId = "mockClientId";
 configurable string clientSecret = "mockClientSecret";
 configurable string refreshToken =  "mockRefreshToken";
+configurable boolean enableClientOauth2 = false;
 
-OAuth2RefreshTokenGrantConfig auth = {
-    clientId,
-    clientSecret,
-    refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER // this line should be added to create auth object.
-
+ConnectionConfig config = {
+    auth: enableClientOauth2 ? {
+            clientId,
+            clientSecret,
+            refreshToken,
+            credentialBearer: oauth2:POST_BODY_BEARER
+        } : {token: "Bearer token"}
 };
 
-final Client taxes = check new Client({auth});
+final Client taxes = check new (config);
 
 //this object is used to test the Basic endpoints
 SimplePublicObject basicTax = {

@@ -14,9 +14,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
-import ballerinax/hubspot.crm.commerce.taxes;
+import ballerinax/hubspot.crm.commerce.taxes as taxes;
 
 configurable string clientId = ?;
 configurable string clientSecret = ?;
@@ -24,9 +25,9 @@ configurable string refreshToken = ?;
 
 //auth confguration for hubspot
 taxes:OAuth2RefreshTokenGrantConfig auth = {
-    clientId: clientId,
-    clientSecret: clientSecret,
-    refreshToken: refreshToken,
+    clientId,
+    clientSecret,
+    refreshToken,
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
@@ -57,13 +58,13 @@ public function main() returns error? {
         }
     };
 
-    taxes:SimplePublicObject updatedTax = check hubspotTaxes->/[taxId].patch(payload = newTaxDetails);
+    taxes:SimplePublicObject updatedTax = check hubspotTaxes->/[taxId].patch(newTaxDetails);
 
     io:println("Successfully updated the tax properties");
     io:println(updatedTax);
 
     //Archive the tax
-    var response = check hubspotTaxes->/[taxId].delete();
+    http:Response response = check hubspotTaxes->/[taxId].delete();
 
     if response.statusCode == 204 {
         io:println("sucessfully deleted the tax");

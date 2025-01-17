@@ -24,9 +24,9 @@ configurable string refreshToken = ?;
 
 //auth confguration for hubspot
 taxes:OAuth2RefreshTokenGrantConfig auth = {
-    clientId: clientId,
-    clientSecret: clientSecret,
-    refreshToken: refreshToken,
+    clientId,
+    clientSecret,
+    refreshToken,
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
@@ -81,5 +81,4 @@ public function main() returns error? {
         ${batchResponse.results[0].id} 
         ${batchResponse.results[1].id}`);
     }
-
 }

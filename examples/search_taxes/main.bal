@@ -16,39 +16,39 @@
 
 import ballerina/io;
 import ballerina/oauth2;
-import ballerinax/hubspot.crm.commerce.taxes;
+import ballerinax/hubspot.crm.commerce.taxes as hstaxes;
 
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
 
 //auth confguration for hubspot
-taxes:OAuth2RefreshTokenGrantConfig auth = {
+hstaxes:OAuth2RefreshTokenGrantConfig auth = {
     clientId,
     clientSecret,
     refreshToken,
     credentialBearer: oauth2:POST_BODY_BEARER
 };
 
-final taxes:Client hubspotTaxes = check new ({auth});
+final hstaxes:Client hubspotTaxes = check new ({auth});
 
 public function main() returns error? {
 
     //Search for a tax by label
-    taxes:PublicObjectSearchRequest payload = {
+    hstaxes:PublicObjectSearchRequest payload = {
         sorts: ["hs_value"],
         query: "A percentage-based tax of 8.5%",
         'limit: 10,
         properties: ["hs_label", "hs_value", "hs_type"]
     };
 
-    taxes:CollectionResponseWithTotalSimplePublicObjectForwardPaging response = 
+    hstaxes:CollectionResponseWithTotalSimplePublicObjectForwardPaging response = 
         check hubspotTaxes->/search.post(payload);
 
     io:println(`total number of taxes found: ${response.results.length()}`);
 
     //Create 2 taxes at the same time using batch API
-    taxes:SimplePublicObjectInputForCreate tax1 = {
+    hstaxes:SimplePublicObjectInputForCreate tax1 = {
         associations: [],
         properties: {
             "hs_label": "A percentage-based tax of 8.5%",
@@ -57,7 +57,7 @@ public function main() returns error? {
         }
     };
 
-    taxes:SimplePublicObjectInputForCreate tax2 = {
+    hstaxes:SimplePublicObjectInputForCreate tax2 = {
         associations: [],
         properties: {
             "hs_label": "A percentage-based tax of 7.5%",
@@ -66,14 +66,14 @@ public function main() returns error? {
         }
     };
 
-    taxes:BatchInputSimplePublicObjectInputForCreate batchInput = {
+    hstaxes:BatchInputSimplePublicObjectInputForCreate batchInput = {
         inputs: [tax1, tax2]
     };
 
-    taxes:BatchResponseSimplePublicObject|taxes:BatchResponseSimplePublicObjectWithErrors batchResponse = 
+    hstaxes:BatchResponseSimplePublicObject|hstaxes:BatchResponseSimplePublicObjectWithErrors batchResponse = 
         check hubspotTaxes->/batch/create.post(batchInput);
 
-    if response is taxes:BatchResponseSimplePublicObjectWithErrors {
+    if response is hstaxes:BatchResponseSimplePublicObjectWithErrors {
         io:println("Error occured while batch creating taxes");
     }
     else {

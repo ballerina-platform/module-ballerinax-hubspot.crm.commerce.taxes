@@ -1,6 +1,6 @@
 ## Overview
 
-[HubSpot](https://www.hubspot.com) is an AI-powered customer relationship management (CRM) platform. 
+[HubSpot](https://www.hubspot.com) is an AI-powered customer relationship management (CRM) platform.
 
 The ballerinax/hubspot.crm.commerce.taxes offers APIs to connect and interact with the [Taxes](https://developers.hubspot.com/docs/guides/api/crm/commerce/taxes) endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api)
 
@@ -9,6 +9,7 @@ The ballerinax/hubspot.crm.commerce.taxes offers APIs to connect and interact wi
 You need a [HubSpot developer account](https://developers.hubspot.com/get-started) with an [app](https://developers.hubspot.com/docs/guides/apps/public-apps/overview) to use HubSpot connectors.
 
 ### Step 1: Create HubSpot Developer Project
+
 1. [Login](https://app.hubspot.com/login) to HubSpot developer account.
 
 2. Create a public app by clicking on Create app.
@@ -16,29 +17,30 @@ You need a [HubSpot developer account](https://developers.hubspot.com/get-starte
    ![Create public app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/build_public_app.png)
 
 3. Click on "Create app".
-![Create app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/create_app.png)
+   ![Create app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/create_app.png)
 
 4. Under "App Info"
    - Enter "Public app name".
    - Update "App logo" (optional).
-   - Update "Description" (optional). 
+   - Update "Description" (optional).
 
    ![Enter app details](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/enter_app_details.png)
 
-- Then move to the "Auth" tab.
+   Then move to the "Auth" tab.
 
 5. Setup the "Redirect URLs" with respective links.
 
    ![Auth page](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/auth_page.png)
 
-Finally "Create app".
+6. Finally click on "Create app".
 
-### Step 2: Get `Client ID` and `Client secret`.
+### Step 2: Get `Client ID` and `Client secret`
+
 Navigate to the "Auth" tab.
 
 ![Client Id, secret](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes/main/docs/setup/resources/client_id_secret.png)
 
-### Step 3: Get `access token` and `refresh token`.
+### Step 3: Get `access token` and `refresh token`
 
 1. Set scopes under "Auth" tab for your app based on the [API requirements](https://developers.hubspot.com/docs/reference/api).
 
@@ -50,7 +52,8 @@ Navigate to the "Auth" tab.
    - `oauth`
 
 2. In the "Auth" tab under "Sample install URL (OAuth)" section "Copy full URL".
-   >**Note:** The above copied URL is in the following format.
+   > **Note:** The above copied URL is in the following format.
+
    ```
    https://app.hubspot.com/oauth/authorize?client_id=<client_id>&redirect_uri=<redirect_url>&scope=<scopes>
    ```
@@ -65,7 +68,7 @@ Navigate to the "Auth" tab.
 
 5. Send a http request to the HubSpot.
 
-   * Linux/macOS
+   - Linux/macOS
 
      ```bash
      curl --request POST \
@@ -74,7 +77,7 @@ Navigate to the "Auth" tab.
      --data 'grant_type=authorization_code&code=<CODE>&redirect_uri=<YOUR_REDIRECT_URI>&client_id=<YOUR_CLIENT_ID>&client_secret=<YOUR_CLIENT_SECRET>'
      ```
 
-   * Windows
+   - Windows
 
      ```bash
      curl --request POST ^
@@ -122,7 +125,7 @@ import ballerinax/hubspot.crm.commerce.taxes;
          clientId,
          clientSecret,
          refreshToken,
-         credentialBearer: oauth2:POST_BODY_BEARER 
+         credentialBearer: oauth2:POST_BODY_BEARER
       }
    };
    final taxes:Client hubSpotClient = check new (config);
@@ -130,7 +133,7 @@ import ballerinax/hubspot.crm.commerce.taxes;
 
 ### Step 3: Invoke the connector operation
 
-Now, utilize the available connector operations. A sample usecase is shown below.
+Now, utilize the available connector operations. A sample use case is shown below.
 
 #### Create a New Tax
 
@@ -145,9 +148,7 @@ Now, utilize the available connector operations. A sample usecase is shown below
          "hs_type": "PERCENT",
          "hs_value": "6"
       }
-
       taxes:SimplePublicObject response = check hubspotClientTax->/.post(payload);
-
    };
 ```
 

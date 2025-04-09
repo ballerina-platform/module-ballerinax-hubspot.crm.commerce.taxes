@@ -32,7 +32,7 @@ final Client mockClient = check new (
 }
 function testMockGetTaxList() returns error? {
 
-    GetCrmV3ObjectsTaxes_getpageQueries params = {
+    GetCrmV3ObjectsTaxesGetPageQueries params = {
         'limit: 5,
         properties: ["hs_value", "hs_type", "hs_label"]
     };

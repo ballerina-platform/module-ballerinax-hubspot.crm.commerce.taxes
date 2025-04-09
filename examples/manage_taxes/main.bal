@@ -64,9 +64,9 @@ public function main() returns error? {
     io:println(updatedTax);
 
     //Archive the tax
-    http:Response response = check hubspotTaxes->/[taxId].delete();
+    error? response = check hubspotTaxes->/[taxId].delete();
 
-    if response.statusCode == 204 {
+    if response == () {
         io:println("sucessfully deleted the tax");
     } else {
         io:println("Failed to delete tax");

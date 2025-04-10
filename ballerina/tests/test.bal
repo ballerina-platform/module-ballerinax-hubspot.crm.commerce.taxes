@@ -17,7 +17,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
 import ballerina/oauth2;
 import ballerina/test;
 
@@ -78,7 +77,7 @@ function testPostTax() returns error? {
 }
 function testGetTaxList() returns error? {
 
-    GetCrmV3ObjectsTaxes_getpageQueries params = {
+    GetCrmV3ObjectsTaxesGetPageQueries params = {
         'limit: 5,
         properties: ["hs_value", "hs_type", "hs_label"]
     };
@@ -103,7 +102,7 @@ function testGetTaxList() returns error? {
 }
 function testGetTaxbyID() returns error? {
 
-    GetCrmV3ObjectsTaxesTaxid_getbyidQueries params = {
+    GetCrmV3ObjectsTaxesTaxIdGetByIdQueries params = {
         properties: ["hs_value", "hs_type", "hs_label"]
     };
 
@@ -127,9 +126,9 @@ function testDeleteTaxbyID() returns error? {
 
     final string taxId = basicTax.id;
 
-    http:Response response = check taxes->/[taxId].delete();
+    error? response = check taxes->/[taxId].delete();
 
-    test:assertEquals(response.statusCode, 204, "Tax is not deleted");
+    test:assertEquals(response, (), "Tax is not deleted");
 }
 
 @test:Config {
@@ -315,7 +314,7 @@ function testPostBatchArchive() returns error? {
         inputs: [{id: batchTaxId[0]}, {id: batchTaxId[1]}]
     };
 
-    http:Response response = check taxes->/batch/archive.post(payload);
+    error? response = check taxes->/batch/archive.post(payload);
 
-    test:assertEquals(response.statusCode, 204, "Batch archive failed");
+    test:assertEquals(response, (), "Batch archive failed");
 }

@@ -5,7 +5,7 @@ name = "hubspot.crm.commerce.taxes"
 version = "@toml.version@"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
-keywords = ["hubspot", "crm", "commerce", "taxes"]
+keywords = ["commerce", "taxes", "Vendor/HubSpot", "Area/CRM", "Type/Connector"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.taxes"
 
 [build-options]

@@ -2,7 +2,14 @@
 
 [HubSpot](https://www.hubspot.com) is an AI-powered customer relationship management (CRM) platform.
 
-The ballerinax/hubspot.crm.commerce.taxes offers APIs to connect and interact with the [Taxes](https://developers.hubspot.com/docs/guides/api/crm/commerce/taxes) endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api)
+The HubSpot connector offers APIs to connect and interact with the [Taxes](https://developers.hubspot.com/docs/guides/api/crm/commerce/taxes) endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api)
+
+### Key Features
+
+- Create, read, update, and delete tax records in HubSpot CRM
+- Batch operations for bulk tax management
+- Search taxes with filtering support
+- Manage tax associations with other CRM objects
 
 ## Setup guide
 

@@ -19,14 +19,23 @@
 
 import ballerina/http;
 
+# Standard error response structure returned by the Taxes API.
 public type StandardError record {
+    # Optional sub-category providing additional error classification.
     record {} subCategory?;
+    # Key-value map of contextual data related to the error.
     record {|string[]...;|} context;
+    # Map of relevant links associated with the error.
     record {|string...;|} links;
+    # Unique identifier for the error instance.
     string id?;
+    # High-level category classifying the error type.
     string category;
+    # Human-readable message describing the error.
     string message;
+    # List of detailed error entries associated with the failure.
     ErrorDetail[] errors;
+    # HTTP status code or status label for the error response.
     string status;
 };
 
@@ -36,29 +45,45 @@ public type PatchCrmV3ObjectsTaxesTaxIdUpdateQueries record {
     string idProperty?;
 };
 
+# Paginated collection of associated object IDs.
 public type CollectionResponseAssociatedId record {
+    # Pagination object containing cursors for navigating to the next or previous page.
     Paging paging?;
+    # Array of associated IDs returned in the response.
     AssociatedId[] results;
 };
 
+# Defines an association target object and its association types.
 public type PublicAssociationsForObject record {
+    # List of association type specifications for the target object.
     AssociationSpec[] types;
+    # Represents a public object identifier containing a unique ID string.
     PublicObjectId to;
 };
 
+# Batch operation response containing results and processing status.
 public type BatchResponseSimplePublicObject record {
+    # Timestamp when the batch operation completed.
     string completedAt;
+    # Timestamp when the batch operation was requested.
     string requestedAt?;
+    # Timestamp when the batch operation started processing.
     string startedAt;
+    # Map of supplemental links related to the batch response.
     record {|string...;|} links?;
+    # Array of tax objects returned by the batch operation.
     SimplePublicObject[] results;
+    # Current status of the batch operation.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# A group of filters combined to narrow search results.
 public type FilterGroup record {
+    # Array of filter conditions applied within this group.
     Filter[] filters;
 };
 
+# Detailed information about a specific error condition.
 public type ErrorDetail record {
     # A specific category that contains more specific detail about the error
     string subCategory?;
@@ -72,51 +97,85 @@ public type ErrorDetail record {
     string message;
 };
 
+# Pagination object for forward-direction cursor navigation.
 public type ForwardPaging record {
+    # Pagination details for retrieving the next page of results.
     NextPage next?;
 };
 
+# An object containing a unique identifier for a public record.
 public type SimplePublicObjectId record {
+    # The unique identifier of the object.
     string id;
 };
 
+# Batch upsert response including results, errors, and status details.
 public type BatchResponseSimplePublicUpsertObjectWithErrors record {
+    # Timestamp when the batch operation completed.
     string completedAt;
+    # Total number of errors encountered during the batch operation.
     int:Signed32 numErrors?;
+    # Timestamp when the batch operation was requested.
     string requestedAt?;
+    # Timestamp when the batch operation began processing.
     string startedAt;
+    # Map of relevant links associated with the batch response.
     record {|string...;|} links?;
+    # Array of successfully upserted tax objects.
     SimplePublicUpsertObject[] results;
+    # Array of errors encountered during the batch upsert.
     StandardError[] errors?;
+    # Current status of the batch upsert operation.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# Input schema for batch reading tax objects by ID.
 public type BatchReadInputSimplePublicObjectId record {
+    # List of properties to return along with their historical values.
     string[] propertiesWithHistory;
+    # The property name used to identify objects in the batch.
     string idProperty?;
+    # Array of object IDs to retrieve in the batch read operation.
     SimplePublicObjectId[] inputs;
+    # List of property names to include in the response.
     string[] properties;
 };
 
+# Response object containing the results and status of a batch upsert operation.
 public type BatchResponseSimplePublicUpsertObject record {
+    # Datetime when the batch operation completed.
     string completedAt;
+    # Datetime when the batch operation was requested.
     string requestedAt?;
+    # Datetime when the batch operation started processing.
     string startedAt;
+    # Map of related resource links associated with the batch response.
     record {|string...;|} links?;
+    # Array of upserted objects returned by the batch operation.
     SimplePublicUpsertObject[] results;
+    # Current status of the batch operation: PENDING, PROCESSING, CANCELED, or COMPLETE.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# A property value paired with its source metadata and recorded timestamp.
 public type ValueWithTimestamp record {
+    # Identifier of the source that provided the value.
     string sourceId?;
+    # The type of source that set or modified the value.
     string sourceType;
+    # Human-readable label describing the value's source.
     string sourceLabel?;
+    # ID of the user who last updated the value.
     int:Signed32 updatedByUserId?;
+    # The property value recorded at the associated timestamp.
     string value;
+    # Datetime when the value was recorded or last updated.
     string timestamp;
 };
 
+# Input schema for a batch operation containing a list of object IDs.
 public type BatchInputSimplePublicObjectId record {
+    # Array of object IDs to process in the batch operation.
     SimplePublicObjectId[] inputs;
 };
 
@@ -127,23 +186,37 @@ public type OAuth2RefreshTokenGrantConfig record {|
     string refreshUrl = "https://api.hubapi.com/oauth/v1/token";
 |};
 
+# Input schema for a batch upsert operation containing objects to create or update.
 public type BatchInputSimplePublicObjectBatchInputUpsert record {
+    # Array of tax records to upsert in batch.
     SimplePublicObjectBatchInputUpsert[] inputs;
 };
 
+# Paginated collection of tax records with a total count and forward paging cursor.
 public type CollectionResponseWithTotalSimplePublicObjectForwardPaging record {
+    # Total number of tax records matching the request.
     int:Signed32 total;
+    # Pagination object for forward-direction cursor navigation.
     ForwardPaging paging?;
+    # Array of tax records returned in the current page.
     SimplePublicObject[] results;
 };
 
+# Represents a tax record with its properties, timestamps, and archival status.
 public type SimplePublicObject record {
+    # Timestamp when the tax record was created.
     string createdAt;
+    # Indicates whether the tax record is archived.
     boolean archived?;
+    # Timestamp when the tax record was archived.
     string archivedAt?;
+    # Map of property names to their historical values with timestamps.
     record {|ValueWithTimestamp[]...;|} propertiesWithHistory?;
+    # Unique identifier of the tax record.
     string id;
+    # Key-value map of the tax record's property names and their current values.
     record {|string?...;|} properties;
+    # Timestamp when the tax record was last updated.
     string updatedAt;
 };
 
@@ -191,7 +264,9 @@ public type ConnectionConfig record {|
     boolean laxDataBinding = true;
 |};
 
+# Represents a public object identifier containing a unique ID string.
 public type PublicObjectId record {
+    # Unique identifier of the public object.
     string id;
 };
 
@@ -225,61 +300,103 @@ public type GetCrmV3ObjectsTaxesGetPageQueries record {
     string[] properties?;
 };
 
+# Pagination object containing cursors for navigating to the next or previous page.
 public type Paging record {
+    # Pagination details for retrieving the next page of results.
     NextPage next?;
+    # Pagination cursor details for navigating to the previous page of results.
     PreviousPage prev?;
 };
 
+# Request payload for searching tax records with filters, sorting, and pagination.
 public type PublicObjectSearchRequest record {
+    # Full-text search query string to filter tax records.
     string query?;
+    # Maximum number of results to return per page.
     int:Signed32 'limit?;
+    # Pagination cursor token for the next page of results.
     string after?;
+    # List of sort criteria to order the search results.
     string[] sorts?;
+    # List of property names to include in the response.
     string[] properties?;
+    # Groups of filters used to narrow search results.
     FilterGroup[] filterGroups?;
 };
 
+# Input payload for upserting a single tax object in a batch operation.
 public type SimplePublicObjectBatchInputUpsert record {
+    # The property name used as the unique identifier for upsert.
     string idProperty?;
+    # Trace identifier for tracking the object write operation.
     string objectWriteTraceId?;
+    # Unique identifier of the tax object to upsert.
     string id;
+    # Key-value map of tax object properties to create or update.
     record {|string...;|} properties;
 };
 
+# Batch operation response containing results, errors, and processing status for tax objects.
 public type BatchResponseSimplePublicObjectWithErrors record {
+    # Timestamp when the batch operation completed.
     string completedAt;
+    # Total number of errors encountered during the batch operation.
     int:Signed32 numErrors?;
+    # Timestamp when the batch operation was requested.
     string requestedAt?;
+    # Timestamp when the batch operation began processing.
     string startedAt;
+    # Map of relevant links associated with the batch response.
     record {|string...;|} links?;
+    # List of successfully processed tax objects from the batch.
     SimplePublicObject[] results;
+    # List of errors encountered for individual objects in the batch.
     StandardError[] errors?;
+    # Current processing status of the batch operation.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# Input payload for creating or updating a tax object with its properties.
 public type SimplePublicObjectInput record {
+    # Trace identifier for auditing the write operation.
     string objectWriteTraceId?;
+    # Key-value map of tax property names and their string values.
     record {|string...;|} properties;
 };
 
+# Paginated collection of tax objects including their associated records.
 public type CollectionResponseSimplePublicObjectWithAssociationsForwardPaging record {
+    # Pagination object for forward-direction cursor navigation.
     ForwardPaging paging?;
+    # Array of tax objects returned in the current page.
     SimplePublicObjectWithAssociations[] results;
 };
 
+# Defines the category and type of an association between objects.
 public type AssociationSpec record {
+    # Source category of the association: HUBSPOT_DEFINED, USER_DEFINED, or INTEGRATOR_DEFINED.
     "HUBSPOT_DEFINED"|"USER_DEFINED"|"INTEGRATOR_DEFINED" associationCategory;
+    # Numeric identifier specifying the association type.
     int:Signed32 associationTypeId;
 };
 
+# A tax object including its properties, metadata, and associated records.
 public type SimplePublicObjectWithAssociations record {
+    # Map of associated object types to their related record collections.
     record {|CollectionResponseAssociatedId...;|} associations?;
+    # Timestamp when the tax record was created.
     string createdAt;
+    # Indicates whether the tax record is archived.
     boolean archived?;
+    # Timestamp when the tax record was archived.
     string archivedAt?;
+    # Map of property names to their historical values with timestamps.
     record {|ValueWithTimestamp[]...;|} propertiesWithHistory?;
+    # Unique identifier of the tax record.
     string id;
+    # Key-value map of the tax record's current property values.
     record {|string?...;|} properties;
+    # Timestamp when the tax record was last updated.
     string updatedAt;
 };
 
@@ -289,53 +406,85 @@ public type PostCrmV3ObjectsTaxesBatchReadReadQueries record {
     boolean archived = false;
 };
 
+# Defines a filter condition using a property, operator, and comparison value.
 public type Filter record {
+    # Upper bound value for BETWEEN range filter operations.
     string highValue?;
+    # The name of the property to filter by.
     string propertyName;
+    # A list of values to match against the filter property.
     string[] values?;
+    # A single value to match against the filter property.
     string value?;
     # null
     "EQ"|"NEQ"|"LT"|"LTE"|"GT"|"GTE"|"BETWEEN"|"IN"|"NOT_IN"|"HAS_PROPERTY"|"NOT_HAS_PROPERTY"|"CONTAINS_TOKEN"|"NOT_CONTAINS_TOKEN" operator;
 };
 
+# Pagination cursor details for navigating to the previous page of results.
 public type PreviousPage record {
+    # The cursor token representing the start of the previous page.
     string before;
+    # A direct URL link to the previous page of results.
     string link?;
 };
 
+# A batch input wrapper containing an array of objects to create in bulk.
 public type BatchInputSimplePublicObjectInputForCreate record {
+    # An array of objects to be created in bulk.
     SimplePublicObjectInputForCreate[] inputs;
 };
 
+# A batch input wrapper containing an array of objects to update in bulk.
 public type BatchInputSimplePublicObjectBatchInput record {
+    # An array of batch input objects to be updated.
     SimplePublicObjectBatchInput[] inputs;
 };
 
+# Represents a tax object returned after an upsert operation, indicating whether it was newly created or updated.
 public type SimplePublicUpsertObject record {
+    # The datetime when the object was originally created.
     string createdAt;
+    # Indicates whether the object has been archived.
     boolean archived?;
+    # The datetime when the object was archived.
     string archivedAt?;
+    # Indicates whether the object was newly created by the upsert.
     boolean 'new;
+    # A map of property values including their historical change timestamps.
     record {|ValueWithTimestamp[]...;|} propertiesWithHistory?;
+    # The unique identifier of the upserted object.
     string id;
+    # A map of property names to their current string values.
     record {|string...;|} properties;
+    # The datetime when the object was last updated.
     string updatedAt;
 };
 
+# Represents a single tax object in a batch update request, identified by ID and containing property values to update.
 public type SimplePublicObjectBatchInput record {
+    # The unique property name used to identify the object.
     string idProperty?;
+    # Trace ID for tracking the object write operation.
     string objectWriteTraceId?;
+    # The unique identifier of the object to update.
     string id;
+    # Key-value pairs of properties to set on the object.
     record {|string...;|} properties;
 };
 
+# Pagination details for retrieving the next page of results.
 public type NextPage record {
+    # The full URL link to the next page of results.
     string link?;
+    # Cursor token representing the start of the next page.
     string after;
 };
 
+# Represents an associated object with its ID and association type.
 public type AssociatedId record {
+    # The unique identifier of the associated object.
     string id;
+    # The type defining the association relationship.
     string 'type;
 };
 
@@ -345,8 +494,12 @@ public type ApiKeysConfig record {|
     string privateApp;
 |};
 
+# Input payload for creating a new tax object with properties and associations.
 public type SimplePublicObjectInputForCreate record {
+    # List of associations linking this tax to other CRM objects.
     PublicAssociationsForObject[] associations;
+    # Trace ID for tracking the object write operation.
     string objectWriteTraceId?;
+    # Key-value pairs of property values for the new tax object.
     record {|string...;|} properties;
 };
